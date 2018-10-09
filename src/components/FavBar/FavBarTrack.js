@@ -4,15 +4,6 @@ import { addTrack, removeTrack  }   from '../../store/actions';
 
 class FavBarTrack extends Component {
 
-    componentDidMount() {
-           
-    }
-    
-    componentDidUpdate() {
-        
-    }
-   
-
     render() {
        
        var inLibrary;
