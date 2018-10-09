@@ -4,15 +4,6 @@ import { addAlbum, removeAlbum }    from '../../store/actions';
 
 class FavBarAlbum extends Component {
 
-    componentDidMount() {
-           
-    }
-    
-    componentDidUpdate() {
-        
-    }
-   
-
     render() {
        
        var inLibrary;
