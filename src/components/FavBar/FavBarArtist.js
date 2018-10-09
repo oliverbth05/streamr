@@ -4,15 +4,6 @@ import { addArtist, removeArtist }  from '../../store/actions';
 
 class FavBarArtist extends Component {
 
-    componentDidMount() {
-           
-    }
-    
-    componentDidUpdate() {
-        
-    }
-   
-
     render() {
        
        var inLibrary;
