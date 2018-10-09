@@ -1,0 +1,19 @@
+.empty-lib {
+    border: 1px solid $white50;
+    padding: 10px;
+    margin: auto;
+    max-width: 1100px;
+    color: $white50;
+    font-size: 21px;
+    text-align: center;
+    
+    i {
+        color: $primary100;
+    }
+    
+    @media screen and (max-width: $third-bp) {
+        font-size: 18px;
+        max-width: 85%;
+    }
+    
+}

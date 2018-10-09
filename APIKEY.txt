@@ -1,0 +1,4 @@
+Application name	fake_stream
+API key	43ff91b503973ad8e8e995b1f4c58616
+Shared secret	8873f31197809dfa77be2f66e09001e0
+Registered to	oliverbth05

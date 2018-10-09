@@ -1,0 +1,88 @@
+.track-list {
+    max-width: 1100px;
+    list-style-type: none;
+    margin: auto;
+    padding: 0;
+
+    @media screen and (max-width: $third-bp) {
+        font-size: 14px;
+    }
+    
+    li {
+        @include transition3s;
+        display: grid;
+        grid-template-columns: 1fr 6fr 6fr 1fr 1fr;
+        align-items: center;
+        text-align: left;
+        cursor: pointer;
+        background: $black30;
+        padding: 23px;
+        font-size: 17.5px;
+        color: $white50;
+        
+        @media screen and (max-width: $second-bp) {
+            font-size: 14px;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+            text-align: center;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        
+        &:hover {
+            color: $white100;
+            background: $black70;
+        }
+        
+        span {
+            font-size: 13px;
+            color: $white50;
+            padding-right: 5px;
+        }
+        
+        i {
+            font-size: 13px;
+            text-align: center;
+            
+            &:hover {
+                color: $primary100;
+            }
+        }
+    }
+}
+
+.track-menu {
+    animation: fadeIn .1s linear;
+    position: fixed;
+    top: 50%;
+    right: 50%;
+
+    &__backdrop {
+        position: fixed;
+        top: 0%;
+        right: 0%;
+        background: rgba(0, 0, 0, 0.09);
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+    }
+    
+    &__menu {
+        height: 250px;
+        width: 250px;
+        border: 1px solid white;
+        border-radius: 5px;
+        z-index: 5;
+        background: $black100;
+        position: absolute;
+        left: 50%;
+        top: 50%; 
+        margin-left: -125px;
+        margin-top: -125px;
+    }
+}

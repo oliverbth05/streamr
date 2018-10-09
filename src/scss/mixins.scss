@@ -1,0 +1,28 @@
+@mixin defaults {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+@mixin backdrop {
+    background: black;
+    background-image: linear;
+    background-size: cover;
+    background-position: center;
+}
+
+@mixin fontStyle {
+    color: $white50;
+    font-weight: 300;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+}
+
+@mixin transition3s {
+    transition: all .3s;
+}
+
+@mixin transition2s {
+    transition: all .2s;
+}

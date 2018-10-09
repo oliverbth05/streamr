@@ -1,0 +1,31 @@
+.loader {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  
+  height: 70px;
+  width: 70px;
+  background: transparent;
+  border-radius: 50%;
+  border: 3px solid;
+  border-color: $dark70 $dark70 $dark70 $primary100;
+  animation: load3 .6s linear infinite;
+}
+
+@keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

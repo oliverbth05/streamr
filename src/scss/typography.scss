@@ -1,0 +1,27 @@
+.heading {
+    color: white;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 20px;
+    display: block;
+    
+}
+.center {
+    text-align: center;
+}
+
+h1 {
+    @media screen and (max-width: $second-bp) {
+        font-size: 24px;
+    }
+}
+
+h2 {
+    @media screen and (max-width: $second-bp) {
+        font-size: 20px;
+        text-align: center;
+    }
+    
+}
+

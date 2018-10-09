@@ -1,0 +1,27 @@
+.artist-info {
+    max-width: 60%;
+    min-width: 50%;
+    margin: auto;
+    
+    @media screen and (max-width: $first-bp) {
+        min-width: 100%;
+        max-width: 100%;
+    }
+    
+    @media screen and (max-width: $second-bp) {
+        min-width: 100%;
+        max-width: 100%;
+    }
+    
+    &__image {
+        display: block;
+        border-radius: 50%;
+        margin: auto;
+        
+        @media screen and (max-width: $second-bp) {
+           height: 200px;
+           width: 200px;
+        }
+        
+    }
+}

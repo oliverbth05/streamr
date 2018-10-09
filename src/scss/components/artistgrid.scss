@@ -1,0 +1,70 @@
+.artist-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 100%;
+    grid-gap: 25px;
+    max-width: 1100px;
+    margin: auto;
+    align-items: center;
+    justify-items: center;
+    
+    @media screen and (max-width: $first-bp) {
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px
+    }
+    
+    @media screen and (max-width: $second-bp) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 0px;
+    }
+    
+    
+    
+}
+
+.artist {
+    display: block;
+    height: 250px;
+    width: 150px;
+    
+    color: $white50;
+    text-decoration: none;
+    
+    @media screen and (max-width: $third-bp) {
+        height: 200px;
+        width: 100px;
+    }
+    
+    img {
+        @include transition2s;
+        width: 150px;
+        height: 150px;
+        box-shadow: 0px 0px 0px -2px $white50;
+        cursor: pointer;
+        border-radius: 50%;
+        
+        &:hover {
+            box-shadow: 0px 0px 0px 5px $white50;
+        }
+        
+        @media screen and (max-width: $third-bp) {
+            height: 100px;
+            width: 100px;
+        }
+    }
+    
+    p {
+        text-align: center;
+        font-size: 19px;
+        color: $white50;
+        
+        &:hover {
+            text-decoration: underline;
+            color: $white100;
+        }
+        
+        @media screen and (max-width: $third-bp) {
+            font-size: 15px;
+        }
+    }
+}
