@@ -1,28 +1,31 @@
-@mixin defaults {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    font-family: 'Lato', sans-serif;
-}
-@mixin backdrop {
-    background: black;
-    background-image: linear;
-    background-size: cover;
-    background-position: center;
-}
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media (max-width: 26.5625em) { //425px
+            @content
+        }
+    };
 
-@mixin fontStyle {
-    color: $white50;
-    font-weight: 300;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1.4px;
-}
+    @if $breakpoint == tablet {
+        @media (max-width: 48em) { //768px
+            @content
+        }
+    };
 
-@mixin transition3s {
-    transition: all .3s;
-}
+    @if $breakpoint == laptop {
+        @media (max-width: 64em) { // 1024px
+            @content
+        }
+    };
 
-@mixin transition2s {
-    transition: all .2s;
+    @if $breakpoint == desktop {
+        @media (max-width: 90em) { // 1440px
+            @content
+        }
+    };
+
+    @if $breakpoint == huge {
+        @media (max-width: 160em) { //2560
+            @content
+        }
+    };
 }

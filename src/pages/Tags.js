@@ -14,29 +14,27 @@ class Tags extends Component {
 
     render() {
         
-        return(
-            <div className = 'page-container'>
-                
-                {this.props.loading ?
-                    <Loader/>
-                : null}
-                
-                <div className = {this.props.loading ? 'fade-container faded-out' : 'fade-container faded-in'}>
-                    
-                    <h1 className = 'heading center'>Results for Tag: '{this.props.match.params.id}' </h1>
-                    <SearchResults {...this.props.tagData }/>
-                    
+        if (this.props.loading) {
+            return <Loader />
+        }
+        
+        else {
+            return(
+                <div className = 'container'>
+                    <h1 className = 'color-white center'>Results for Tag: '{this.props.match.params.id}' </h1>
+                    <SearchResults {...this.props.tag }/>
                 </div>
-                
-            </div>
             )
+        }
+        
+        
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         loading: state.loading,
-        tagData: state.tagData
+        tag: state.tag
     }
 }
 

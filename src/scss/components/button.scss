@@ -1,0 +1,26 @@
+.button {
+    padding: .7rem;
+    border: 2px solid $white50;
+    color: $white50;
+    text-align: center;
+    border-radius: 3px;
+    
+    &:hover {
+        color: $white100;
+        border-color: $white100;
+    }
+} 
+
+.button-block {
+    display: block;
+    width: 100%;
+    border: 2px solid $white50;
+    color: $white50;
+    text-align: center;
+    border-radius: 3px;
+    
+    &:hover {
+        color: $white100;
+        border-color: $white100;
+    }
+}

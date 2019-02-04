@@ -13,36 +13,32 @@ class SearchArtist extends Component {
     }
     
     componentDidUpdate(prevProps) {
-     if (this.props.match.params.id !== prevProps.match.params.id) {
-        this.props.loadArtistInfo(this.props.match.params.id)   
-     }
+        if (this.props.match.params.id !== prevProps.match.params.id) {
+            this.props.loadArtistInfo(this.props.match.params.id)   
+        }
     }
     
     render() {
-        
-        
-        
-        return(
-            <div className = 'page-container'>
-            
-                {this.props.loading ? <Loader /> : null}
-                
-                 <div className = {this.props.loading ? 'fade-container faded-out' : 'fade-container faded-in'}>
-                    <div className = 'full-section'>
-                        
-                        {this.props.loading  || this.props.artistInfo === undefined ? null :
-                            <ArtistInfo  {...this.props.artistInfo}/>
-                        }
-                    </div>
+
+        if (this.props.loading) {
+            return <Loader />
+        }
+    
+        else {
+            return(
+                <div className = 'container'>
+                    { this.props.artistInfo === null ? null :
+                        <ArtistInfo  {...this.props.artistInfo}/>
+                    }
                 </div>
-            </div>
             )
+        }
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        artistInfo: state.artistInfo,
+        artistInfo: state.artist,
         myArtists: state.myArtists,
         loading: state.loading
     }

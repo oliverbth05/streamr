@@ -2,6 +2,7 @@ import React, { Component }           from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import { connect }                    from 'react-redux';
 /////////////////////////////////Pages
+import Auth                           from './pages/Auth';
 import Home                           from './pages/Home';
 import Tracks                         from './pages/Tracks';
 import Albums                         from './pages/Albums';
@@ -67,6 +68,8 @@ class App extends Component {
           <Switch>
           
               <Route exact path = '/' component = {Home} />
+              <Route exact path = '/auth' component = {Auth} />
+              
               
               <Route exact path = '/artist/:id' component = {ShowArtist}/>
               <Route exact path = '/album/:artistid/:albumid' component = {ShowAlbum} />

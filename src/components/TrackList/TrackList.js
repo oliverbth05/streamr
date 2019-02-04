@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Link}               from 'react-router-dom';
-
 import FavBarTrack          from '../FavBar/FavBarTrack';
 
 class TrackList extends Component {
@@ -16,7 +15,7 @@ class TrackList extends Component {
             selectedTrack: {
                 name: trackName,
                 artist: artistName
-            }
+            } 
         })
     }
 
@@ -29,37 +28,41 @@ class TrackList extends Component {
     }
         
     render() {
-        
-
+        console.log(this.props)
         const tracksMapped = this.props.tracks.map((track, index) => {
             return (
-                <li key = {index}>
-                    <div>{index + 1}.</div> 
-                    <div>{track.name}</div> 
-                    <Link to = {'/artist/' + track.artist}>{track.artist}</Link>
-                    <i className="fas fa-ellipsis-v" onClick = {() => {this.selectTrack(track.name, track.artist)}}></i>
-                </li>
+                <tr key = {index} className = 'track'>
+                    <td>{index + 1}.</td> 
+                    <td>{track.name}</td> 
+                    <td><Link to = {'/artist/' + track.artist}>{track.artist}</Link></td>
+                    <td><i className="fas fa-ellipsis-v" onClick = {() => {this.selectTrack(track.name, track.artist)}}></i></td>
+                </tr>
             )    
         })
     
         return (
-            <ul className = 'track-list'>
-                {tracksMapped}
+            <div>
+                <table className = 'tracklist'>
+                    <tbody>
+                        {tracksMapped}
+                    </tbody>
+                </table>
                 
-                 {this.state.showMenu ?
+                {this.state.showMenu ?
                     <div className = 'track-menu' >
                         
                         <div className  = 'track-menu__backdrop' onClick = {this.hideMenu.bind(this)}></div>
                         
                         
                         <div className = 'track-menu__menu'>
-                            <h4 className = 'heading center'>{this.state.selectedTrack.name}</h4>
+                            <h4>{this.state.selectedTrack.name}</h4>
                             <FavBarTrack name = {this.state.selectedTrack.name} artist = {this.state.selectedTrack.artist} hideMenu = {this.hideMenu.bind(this)}/>
                         </div>
                     
+                
                     </div>
-                    : null}
-            </ul>
+                : null}
+            </div>
         )
     }
 }

@@ -28,7 +28,7 @@ class Nav extends Component {
         return (
         <div className = 'nav'> 
             <div className = 'nav__heading-container'>
-                <Link to = '/' className = 'nav__heading'><i className="fas fa-broadcast-tower"></i> Streamr</Link>
+                <Link to = '/' className = 'nav__heading'><i className="fas fa-broadcast-tower"></i> STREAMER</Link>
             </div>
             <div className = 'nav__links'>
                 <NavLink exact to = '/' className = 'nav__link'>Home</NavLink>

@@ -1,28 +1,44 @@
 @import './mixins.scss';
-@import './breakpoints.scss';
-@import './typography.scss';
 @import './color.scss';
+@import './typography.scss';
 @import './layout.scss';
-
+@import './helpers.scss';
 //Pages
-@import './pages/pagenotfound.scss';
-@import './pages/about.scss';
-@import './pages/artistinfo.scss';
-@import './pages/albuminfo.scss';
-@import './pages/searchresults.scss';
+
 
 //Components
 @import './components/nav.scss';
-@import './components/formComponents.scss';
 @import './components/loader.scss';
-@import './components/artistgrid.scss';
-
-@import './components/albumgrid.scss';
-@import './components/tracktable.scss';
-
-@import './components/taggrid.scss';
+@import './components/button.scss';
+@import './components/input.scss';
 @import './components/tracklist.scss';
-@import './components/biomodal.scss';
+@import './components/tags.scss';
+@import './components/form.scss';
 
-@import './components/favoritebar';
-@import './components/emptylibrary.scss';
+html {
+    //The default browser font-size is 16px
+    //We want every relative unit (rem) to correspond to 10px
+    //==> Set the font-size to 62.5% of the default of 16, ===> 10px
+    font-size: 62.5%;
+    @include respond(huge) {
+        font-size: 95%; // 14.4px
+    }
+    @include respond(desktop) {
+        font-size: 90%; // 12.8px
+    }
+    @include respond(laptop) {
+        font-size: 85%;  //12px
+    }
+    @include respond(tablet) {
+        font-size: 80%; //11.2px
+    }
+    @include respond(phone) {
+        font-size: 75%; //10px
+    }
+}
+
+body {
+  margin-top: 65px;
+  background: black;
+  color: $white50;
+}

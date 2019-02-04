@@ -5,7 +5,8 @@ import { addArtist, removeArtist }  from '../../store/actions';
 class FavBarArtist extends Component {
 
     render() {
-       
+        console.log('FAVBAR')
+        console.log(this.props)
        var inLibrary;
        
        (() => {

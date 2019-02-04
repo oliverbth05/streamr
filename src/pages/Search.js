@@ -18,26 +18,26 @@ class Search extends Component {
     }
     
     render() {
-        return(
-           <div className = 'page-container'>
-            
-                {this.props.loading ?
-                    <Loader/>
-                : null}
-                
-                <div className = {this.props.loading ? 'fade-container faded-out' : 'fade-container faded-in'}>
-                   <h1 className = 'heading center'>Search Results for '{this.props.match.params.id}'</h1>
-                   <SearchResults {...this.props.searchData} />
+        
+        if (this.props.loading) {
+            return <Loader />
+        }
+        
+        else {
+            return(
+                <div className = 'container'>
+                   <h1 className = 'color-white center'>Search Results for '{this.props.match.params.id}'</h1>
+                   <SearchResults {...this.props.search} />
                 </div>
-                
-            </div>
             )
+        }
+        
     }
 }
 
 const mapStateToProps = state => {
     return {
-        searchData: state.searchData,
+        search: state.search,
         loading: state.loading
     }
 }

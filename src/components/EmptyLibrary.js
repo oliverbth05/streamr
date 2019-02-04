@@ -10,7 +10,6 @@ const EmptyLibrary = (props) => {
             article = 'an';
             break
         }
-    
     }
     
     

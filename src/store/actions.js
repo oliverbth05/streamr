@@ -1,4 +1,5 @@
 import axios from 'axios';
+import lastfm from '../api/lastfm';
 
 //UTLITIES//////////////////////////////////////////
 const urlRoot = 'https://ws.audioscrobbler.com/2.0/';
@@ -79,50 +80,36 @@ const serverError = () => {
 
 
 
-const loadHomeData = (artists, tracks, tags) => {
-    return {
-        type: 'LOAD_HOME_DATA',
-        artists: artists,
-        tracks: tracks,
-        tags: tags
-    }
-}
 
-export const loadHomeDataAsync = () => { //TOP TRACKS, TOP ARTISTS, TOP TAGS
+
+export const fetchHomeData = () => { //TOP TRACKS, TOP ARTISTS, TOP TAGS
     return dispatch => {
         dispatch(loading());
         
-        axios.get(urlRoot + '?method=chart.gettoptracks&api_key=' + apiKey + '&format=json&limit=10')
+        const data = {};
+        
+        lastfm.get('?method=chart.gettoptracks&api_key=' + apiKey + '&format=json&limit=10')
         .then(response => {
-            var tracks = response.data.tracks.track;
-          
-            axios.get(urlRoot + '?method=chart.gettopartists&api_key=' + apiKey + '&format=json&limit=15')
-            .then(response => {
-               var artists = response.data.artists.artist
-               
-                axios.get(urlRoot + '?method=tag.getTopTags&api_key=' + apiKey + '&format=json&limit=20')
-                .then(response => {
-                    
-                    var tags = response.data.toptags.tag;
-                    
-                    dispatch(loadHomeData(artists, tracks, tags))
-                    dispatch(nLoading())
-                })
-              
-            })
-            .catch(error => {
-                console.log(error.response)
-                dispatch(serverError())
-                dispatch(nLoading())
-                
-            })
+            data.tracks = response.data.tracks.track;
+            return lastfm.get('?method=chart.gettopartists&api_key=' + apiKey + '&format=json&limit=15')
+        })
+        .then(response => {
+            data.artists = response.data.artists.artist
+            return lastfm.get('?method=tag.getTopTags&api_key=' + apiKey + '&format=json&limit=20')
+        })
+        .then(response => {
+            data.tags = response.data.toptags.tag;
+            var action = {
+                type: 'FETCH_HOME_DATA',
+                artists: data.artists,
+                tracks: data.tracks,
+                tags: data.tags
+            }
+            dispatch(action)
+            dispatch(nLoading())
         })
     }
 }
-
-
-
-
 
 const loadArtistInfo = (artistInfo) => {
     return {
@@ -135,23 +122,18 @@ export const loadArtistInfoAsync = (artistName) => { //ARTIST INFO, ARTIST_TOP A
     return dispatch => {
         dispatch(loading())
         
-        var url = urlRoot + '?method=artist.getinfo&artist=' + querify(artistName) + '&api_key=' + apiKey + '&format=json';
-        
-        axios.get(url)
+        lastfm.get('?method=artist.getinfo&artist=' + querify(artistName) + '&api_key=' + apiKey + '&format=json')
         .then(response => {
-            
+    
             var artistData = {...response.data.artist};
             artistData.bio.content = removeHTML(artistData.bio.content)
             artistData.bio.summary = removeHTML(artistData.bio.summary)
-            
-            var url = urlRoot + '?method=artist.gettopalbums&artist=' + querify(artistName) + '&api_key=' + apiKey + '&format=json&limit=6';
            
-            axios.get(url)
+            lastfm.get('?method=artist.gettopalbums&artist=' + querify(artistName) + '&api_key=' + apiKey + '&format=json&limit=6')
             .then(response => {
                 artistData.albums = response.data.topalbums.album
                 
-                var url = urlRoot + '?method=artist.gettoptracks&artist=' + querify(artistName) + '&api_key=' + apiKey + '&format=json&limit=15';
-                axios.get(url)
+                lastfm.get('?method=artist.gettoptracks&artist=' + querify(artistName) + '&api_key=' + apiKey + '&format=json&limit=15')
                 .then(response => {
                     
                     artistData.tracks = response.data.toptracks.track
@@ -186,9 +168,9 @@ export const loadAlbumInfoAsync = (artistName, albumName) => { //ALBUM INFO
     return dispatch => {
         dispatch(loading())
         
-       var url = urlRoot + '?method=album.getinfo&artist=' + querify(artistName) + '&album=' + querify(albumName) + '&api_key=' + apiKey + '&format=json';
+     
        
-       axios.get(url)
+       lastfm.get('?method=album.getinfo&artist=' + querify(artistName) + '&album=' + querify(albumName) + '&api_key=' + apiKey + '&format=json')
        .then(response => {
            dispatch(loadAlbumInfo(response.data.album))
            dispatch(nLoading())
@@ -219,15 +201,15 @@ export const loadSearchDataAsync = searchTerm => { //FIRST 5 RESULTS FOR TRACKS,
         
         var searchData = {};
         
-        axios.get(urlRoot + '?method=track.search&track=' + querify(searchTerm) + '&api_key=' + apiKey + '&format=json&limit=5')
+        lastfm.get('?method=track.search&track=' + querify(searchTerm) + '&api_key=' + apiKey + '&format=json&limit=5')
         .then(response => {
             searchData.tracks = response.data.results.trackmatches.track;
             
-            axios.get(urlRoot + '?method=album.search&album=' + querify(searchTerm) + '&api_key=' + apiKey + '&format=json&limit=5')
+            lastfm.get('?method=album.search&album=' + querify(searchTerm) + '&api_key=' + apiKey + '&format=json&limit=5')
             .then(response => {
                 searchData.albums = response.data.results.albummatches.album;
                 
-                axios.get(urlRoot + '?method=artist.search&artist=' + querify(searchTerm) + '&api_key=' + apiKey + '&format=json&limit=5')
+                lastfm.get('?method=artist.search&artist=' + querify(searchTerm) + '&api_key=' + apiKey + '&format=json&limit=5')
                 .then(response => {
                     searchData.artists = response.data.results.artistmatches.artist;
                     
@@ -262,16 +244,16 @@ export const loadTagDataAsync = tagName => {
         
         var tagData = {};
         
-        axios.get(urlRoot + '?method=tag.gettoptracks&tag=' + tagName + '&api_key=' + apiKey + '&format=json&limit=5')
+        lastfm.get('?method=tag.gettoptracks&tag=' + tagName + '&api_key=' + apiKey + '&format=json&limit=5')
         .then(response => {
             tagData.tracks = response.data.tracks.track;
             
-            axios.get(urlRoot + '?method=tag.gettopalbums&tag=' + tagName + '&api_key=' + apiKey + '&format=json&limit=5')
+            lastfm.get('?method=tag.gettopalbums&tag=' + tagName + '&api_key=' + apiKey + '&format=json&limit=5')
             .then(response => {
                
                 tagData.albums = response.data.albums.album;
                 
-                axios.get(urlRoot + '?method=tag.gettopartists&tag=' + tagName + '&api_key=' + apiKey + '&format=json&limit=5')
+                lastfm.get('?method=tag.gettopartists&tag=' + tagName + '&api_key=' + apiKey + '&format=json&limit=5')
                 .then(response => {
                     
                     tagData.artists = response.data.topartists.artist;

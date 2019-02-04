@@ -8,7 +8,7 @@ const TagGrid = (props) => {
     })
 
     return (
-        <div className = 'tag-grid'>
+        <div className = 'flex-grid'>
             {tagsMapped}
         </div>
     )

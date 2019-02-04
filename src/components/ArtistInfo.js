@@ -7,12 +7,15 @@ import TrackList        from './TrackList/TrackList';
 import FavBarArtist     from './FavBar/FavBarArtist';
 
 const ArtistInfo = (props) => {
-  
-    if (props.image !== undefined) {
     
+     
+    console.log(props)
+    
+    if (props.image !== undefined) {
+     
         return (
             <div className = 'artist-info'>
-                <h1 className = 'heading center'>{props.name}</h1>
+                <h1 className = 'color-white center'>{props.name}</h1>
               
                 <img alt = {props.name} className = 'artist-info__image' src = {props.image[3]['#text'] }  />
                 
