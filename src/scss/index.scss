@@ -37,6 +37,10 @@ html {
     }
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
   margin-top: 65px;
   background: black;

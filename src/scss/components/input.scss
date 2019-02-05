@@ -1,0 +1,24 @@
+.input {
+    outline: none;
+}
+
+.input-block {
+    border: none;
+    border-bottom: 1px solid;
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+    padding: .6rem;
+    outline: none;
+}
+
+.input-1 {
+    background: $black50;
+    border-color: $white50;
+    color: $white50;
+
+    &:focus, &:hover {
+        color: $white100;
+        border-color: $white100;
+    }
+}

@@ -23,7 +23,7 @@ class Home extends Component {
                 
                 
                     <div className = 'full-section bg-image'>
-                        <div className = 'container'>
+                        <div>
                             <h1 className = 'white-100 font-light center'><i className="fas fa-broadcast-tower"></i> STREAMER</h1>
                             <Link className = 'button' to = '/about'>About</Link>
                         </div>

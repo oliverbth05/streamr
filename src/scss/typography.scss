@@ -20,12 +20,17 @@ h3,
 h4, {
     font-family: 'Sarabun', sans-serif;
     letter-spacing: 3px;
+    display: block;
 }
 
-p, li, a, td {
+p, li, a, td, label, button, input, textarea {
     font-size: 1.1rem;
     white-space: pre-wrap;
     font-family: 'Source Sans Pro', sans-serif;
+}
+
+label {
+    display: block;
 }
 
 a {

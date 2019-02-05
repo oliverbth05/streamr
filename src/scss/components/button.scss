@@ -1,10 +1,9 @@
 .button {
     padding: .7rem;
-    border: 2px solid $white50;
-    color: $white50;
     text-align: center;
     border-radius: 3px;
-    
+    border: 1px solid $white50;
+
     &:hover {
         color: $white100;
         border-color: $white100;
@@ -14,13 +13,27 @@
 .button-block {
     display: block;
     width: 100%;
-    border: 2px solid $white50;
-    color: $white50;
     text-align: center;
     border-radius: 3px;
+    padding: .7rem;
+    cursor: pointer;
     
+    &:hover {
+
+    }
+}
+
+.btn-dark {
+    background: $black70;
+    border: 1px solid $white50;
+    color: $white50;
+
     &:hover {
         color: $white100;
         border-color: $white100;
     }
+}
+
+.btn-light {
+
 }
