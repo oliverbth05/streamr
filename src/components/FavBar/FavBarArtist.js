@@ -5,8 +5,6 @@ import { addArtist, removeArtist }  from '../../store/actions';
 class FavBarArtist extends Component {
 
     render() {
-        console.log('FAVBAR')
-        console.log(this.props)
        var inLibrary;
        
        (() => {
@@ -17,20 +15,20 @@ class FavBarArtist extends Component {
            }
            return inLibrary = false;
        })();
-       
+         
        return (
             
             <div>
               {inLibrary ?
-                <div className = 'favorite added' onClick = { () => {this.props.removeArtist(this.props.name)}}>
+                <a className = 'favbar added' onClick = { () => {this.props.removeArtist(this.props.name)}}>
                     <i className="fas fa-star"></i>
                     <p>In Favorites</p>
-                </div>
+                </a>
                 :
-                <div onClick  = {() => {this.props.addArtist({name: this.props.name, img: this.props.img})}} className = 'favorite not-added'>
+                <a onClick  = {() => {this.props.addArtist({name: this.props.name, img: this.props.img})}} className = 'favbar not-added'>
                     <i className="far fa-star"></i>
                     <p>Add to Favorites</p>
-                </div>
+                </a>
               }
             </div>
             

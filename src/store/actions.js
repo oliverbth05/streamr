@@ -1,90 +1,12 @@
-import axios from 'axios';
 import lastfm from '../api/lastfm';
-
+import querify from '../util/querify';
+import removeHTML from '../util/removeHTML';
 //UTLITIES//////////////////////////////////////////
-const urlRoot = 'https://ws.audioscrobbler.com/2.0/';
 var apiKey = '43ff91b503973ad8e8e995b1f4c58616';
 
-function querify(str) {
-    var reserved = ['$', '&', '+', ',', ':', ';', '=', '?', '@']
-    var newStr = '';
-    for (var i = 0; i < str.length; i++) {
-        if (reserved.indexOf(str[i]) !== -1) {
-            if (str[i] === '$') {
-                newStr+= '%24' 
-            }
-            if (str[i] === '&') {
-                newStr+= '%26'
-            }
-            if (str[i] === '+') {
-                newStr+= '%2B'
-            }
-            if (str[i] === ',') {
-                newStr += '%2C'
-            }
-            if (str[i] === ':') {
-                newStr += '%3A'
-            }
-            if (str[i] === ';') {
-                newStr += '%3B'
-            }
-            if (str[i] === '=') {
-                newStr += '%3D'
-            }
-            if (str[i] === '?') {
-                newStr += '%3F'
-            } 
-            if (str[i] === '@') {
-                newStr += '%40'
-            }
-        }
-        else {
-            newStr += str[i]
-        }
-    }
-    return newStr
-}
-
-function removeHTML(str) {
-    var newStr = '';
-    
-    for (var i = 0; i < str.length; i++) {
-        if (str[i] === '<') {
-            break
-        }
-        newStr += str[i]
-    }
-    return newStr
-}
-/////////////////////////////////////////
-
-const loading = () => {
-    return {
-        type: 'LOADING'
-    }
-}
-
-const nLoading = () => {
-    return {
-        type: '!LOADING'
-    }
-}
-
-const serverError = () => {
-    return {
-        type: 'SERVER_ERROR'
-    }
-}
-
-
-
-
-
-
-
-export const fetchHomeData = () => { //TOP TRACKS, TOP ARTISTS, TOP TAGS
+export const  fetchHomeData = () => { //TOP TRACKS, TOP ARTISTS, TOP TAGS
     return dispatch => {
-        dispatch(loading());
+        dispatch({type: 'LOADING'});
         
         const data = {};
         
@@ -106,166 +28,120 @@ export const fetchHomeData = () => { //TOP TRACKS, TOP ARTISTS, TOP TAGS
                 tags: data.tags
             }
             dispatch(action)
-            dispatch(nLoading())
+            dispatch({type: '!LOADING'})
         })
     }
 }
 
-const loadArtistInfo = (artistInfo) => {
-    return {
-        type: 'LOAD_ARTIST_INFO',
-        payload: artistInfo
-    }
-}
 
-export const loadArtistInfoAsync = (artistName) => { //ARTIST INFO, ARTIST_TOP ALBUMS, ARTIST_TOP TRACKS
+export const fetchArtistInfo = (artistName) => { //ARTIST INFO, ARTIST_TOP ALBUMS, ARTIST_TOP TRACKS
+    var artistData;
     return dispatch => {
-        dispatch(loading())
-        
+        dispatch({type: 'LOADING'})
         lastfm.get('?method=artist.getinfo&artist=' + querify(artistName) + '&api_key=' + apiKey + '&format=json')
         .then(response => {
-    
-            var artistData = {...response.data.artist};
+            artistData = {...response.data.artist};
             artistData.bio.content = removeHTML(artistData.bio.content)
             artistData.bio.summary = removeHTML(artistData.bio.summary)
-           
-            lastfm.get('?method=artist.gettopalbums&artist=' + querify(artistName) + '&api_key=' + apiKey + '&format=json&limit=6')
-            .then(response => {
-                artistData.albums = response.data.topalbums.album
-                
-                lastfm.get('?method=artist.gettoptracks&artist=' + querify(artistName) + '&api_key=' + apiKey + '&format=json&limit=15')
-                .then(response => {
-                    
-                    artistData.tracks = response.data.toptracks.track
-                    dispatch(loadArtistInfo(artistData))
-                    dispatch(nLoading())
-                })
-               
-            })
-           
+            return lastfm.get('?method=artist.gettopalbums&artist=' + querify(artistName) + '&api_key=' + apiKey + '&format=json&limit=6')
         })
-        .catch(error => {
-                console.log(error.response)
-                dispatch(serverError())
-                dispatch(nLoading())
-            })
+        .then(response => {
+            artistData.albums = response.data.topalbums.album
+            return lastfm.get('?method=artist.gettoptracks&artist=' + querify(artistName) + '&api_key=' + apiKey + '&format=json&limit=15')
+        })
+        .then(response => {
+            artistData.tracks = response.data.toptracks.track
+            var action = {
+                type: 'FETCH_ARTIST_INFO',
+                payload: artistData
+            }
+            dispatch(action)
+            dispatch({type: '!LOADING'})
+        })
     }    
 }
 
 
-
-
-
-const loadAlbumInfo = (albumInfo) => {
-    return {
-        type: 'LOAD_ALBUM_INFO',
-        payload: albumInfo
-    }
-}
-
-export const loadAlbumInfoAsync = (artistName, albumName) => { //ALBUM INFO
+export const fetchAlbumInfo = (artistName, albumName) => { //ALBUM INFO
    
     return dispatch => {
-        dispatch(loading())
-        
-     
-       
-       lastfm.get('?method=album.getinfo&artist=' + querify(artistName) + '&album=' + querify(albumName) + '&api_key=' + apiKey + '&format=json')
-       .then(response => {
-           dispatch(loadAlbumInfo(response.data.album))
-           dispatch(nLoading())
-       })
-       .catch(error => {
-                console.log(error.response)
-                dispatch(serverError())
-                dispatch(nLoading())
-                
-            })
+        dispatch({type: 'LOADING'})
+        lastfm.get('?method=album.getinfo&artist=' + querify(artistName) + '&album=' + querify(albumName) + '&api_key=' + apiKey + '&format=json')
+        .then(response => {
+            
+            var info = {...response.data.album}
+            
+            info.wiki.summary = removeHTML(info.wiki.summary);
+
+            
+            var action = {
+                type: 'FETCH_ALBUM_INFO',
+                payload: info
+            }
+            dispatch(action)
+            dispatch({type: '!LOADING'})
+        })
+        .catch(error => {
+            console.log(error.response)
+            dispatch({type: '!LOADING'})
+        })
     }
 }
 
-
-
-
-
-const loadSearchData = (searchData) => {
-    return {
-        type: 'LOAD_SEARCH_DATA',
-        payload: searchData
-    }
-}
-
-export const loadSearchDataAsync = searchTerm => { //FIRST 5 RESULTS FOR TRACKS, ARTISTS, ALBUMS
+export const fetchSearchData = searchTerm => { //FIRST 5 RESULTS FOR TRACKS, ARTISTS, ALBUMS
     return dispatch => {
-        dispatch(loading())
-        
+        dispatch({type: 'LOADING'})
         var searchData = {};
-        
         lastfm.get('?method=track.search&track=' + querify(searchTerm) + '&api_key=' + apiKey + '&format=json&limit=5')
         .then(response => {
             searchData.tracks = response.data.results.trackmatches.track;
-            
-            lastfm.get('?method=album.search&album=' + querify(searchTerm) + '&api_key=' + apiKey + '&format=json&limit=5')
-            .then(response => {
-                searchData.albums = response.data.results.albummatches.album;
-                
-                lastfm.get('?method=artist.search&artist=' + querify(searchTerm) + '&api_key=' + apiKey + '&format=json&limit=5')
-                .then(response => {
-                    searchData.artists = response.data.results.artistmatches.artist;
-                    
-                    dispatch(loadSearchData(searchData))
-                    dispatch(nLoading())
-                })
-            })
+            return lastfm.get('?method=album.search&album=' + querify(searchTerm) + '&api_key=' + apiKey + '&format=json&limit=5')
+        })
+        .then(response => {
+            searchData.albums = response.data.results.albummatches.album;
+            return lastfm.get('?method=artist.search&artist=' + querify(searchTerm) + '&api_key=' + apiKey + '&format=json&limit=5')
+        })
+        .then(response => {
+            searchData.artists = response.data.results.artistmatches.artist;
+            var action = {
+                type: 'FETCH_SEARCH_DATA',
+                payload: searchData
+            }
+            dispatch(action)
+            dispatch({type: '!LOADING'})
         })
         .catch(error => {
-                console.log(error.response)
-                dispatch(serverError())
-                dispatch(nLoading())
-                
-            })
+            console.log(error.response)
+            dispatch({type: '!LOADING'})
+        })
     }
 }
 
-
-
-
-
-const loadTagData = (tagData) => {
-    return {
-        type: 'LOAD_TAG_DATA',
-        payload: tagData
-    }
-}
-
-export const loadTagDataAsync = tagName => {
+export const fetchTagData = tagName => {
     return dispatch => {
-        dispatch(loading())
-        
+        dispatch({type: 'LOADING'})
         var tagData = {};
-        
         lastfm.get('?method=tag.gettoptracks&tag=' + tagName + '&api_key=' + apiKey + '&format=json&limit=5')
         .then(response => {
             tagData.tracks = response.data.tracks.track;
-            
-            lastfm.get('?method=tag.gettopalbums&tag=' + tagName + '&api_key=' + apiKey + '&format=json&limit=5')
-            .then(response => {
-               
-                tagData.albums = response.data.albums.album;
-                
-                lastfm.get('?method=tag.gettopartists&tag=' + tagName + '&api_key=' + apiKey + '&format=json&limit=5')
-                .then(response => {
-                    
-                    tagData.artists = response.data.topartists.artist;
-                    dispatch(loadTagData(tagData))
-                    dispatch(nLoading())
-                })
-            })
+            return lastfm.get('?method=tag.gettopalbums&tag=' + tagName + '&api_key=' + apiKey + '&format=json&limit=5')
+        })    
+        .then(response => {
+            tagData.albums = response.data.albums.album;
+            return lastfm.get('?method=tag.gettopartists&tag=' + tagName + '&api_key=' + apiKey + '&format=json&limit=5')
+        })
+        .then(response => {
+            tagData.artists = response.data.topartists.artist;
+            var action = {
+                type: 'FETCH_TAG_DATA',
+                payload: tagData
+            }
+            dispatch(action)
+            dispatch({type: '!LOADING'})
         })
         .catch(error => {
-                console.log(error.response)
-                dispatch(serverError())
-                dispatch(nLoading())
+            console.log(error.response)
+                dispatch({type: '!LOADING'})
             })
     }
 }

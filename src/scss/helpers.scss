@@ -1,8 +1,6 @@
 //Color and font helpers
 
-.border-top {
-  border-top: 1px solid $white50;
-}
+
 
 .text-center {
   text-align: center;
@@ -33,43 +31,56 @@
     color: $white100;   
 }
 
-.border-50 {
-  border-radius: 50%;
+.primary-100 {
+  color: $primary100;
 }
-
-
-
-
-
-
-
 
 
 //Layout Helpers
 
-.p-1 {
-    padding: 3rem;
+.border-50 {
+  border-radius: 50%;
 }
 
-.p-2 {
-    padding: 2rem;
+.width-100 { //Expands image to 100% on mobile
+  @include respond(phone) {
+    width: 100%;
+  }
 }
 
-.p-3 {
-    padding: 1rem
+.border-top {
+  border-top: 1px solid $primary50;
 }
 
-.p-4 {
-    padding: .6rem
+.bg-image {
+    background: linear-gradient(to top, $primary50, rgba(0, 0, 0, 1)), url('https://images.pexels.com/photos/1451474/pexels-photo-1451474.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
 }
 
-.p-5 {
-    padding: .3rem;
+.bg-image-2 {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1529753253655-470be9a42781?ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
 }
+
+
+
+//PADDING AND MARGIN
 
 .m-auto {
   display: block;
   margin: auto
+}
+
+.m-r-s {
+  margin-right: .3rem;
+}
+
+.m-b-s {
+  margin-bottom: .3rem;
 }
 
 .m-a-0 {

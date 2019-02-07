@@ -10,7 +10,7 @@ const AlbumGrid = (props) => {
     })
     
     return (
-        <div className = 'album-grid'>
+        <div className = 'flex-grid-start'>
             {albumsMapped}
         </div>
         )

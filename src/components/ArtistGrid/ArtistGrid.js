@@ -3,15 +3,19 @@ import Artist   from './Artist';
 
 const ArtistGrid = (props) => {
     
+    var style = props.align === 'center' ? 'flex-grid-center' : 'flex-grid-start';
+    
     let artistsMapped = props.artists.map(item => {
         return <Artist key = {item.mbid} name = {item.name} artist = {item.artist} img = {item.image[2]['#text']} />
     })
+    
+    
      
     return (
-        <div className = 'flex-grid'>
+        <div className = {style}>
             {artistsMapped}
         </div>
     )
 }
 
-export default ArtistGrid;
+export default ArtistGrid; 

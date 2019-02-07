@@ -1,7 +1,7 @@
 const artist = (state = null, action) => {
     switch(action.type) {
         
-        case 'LOAD_ARTIST_INFO' :
+        case 'FETCH_ARTIST_INFO' :
             
             var artistTracks = action.payload.tracks.map(item => {
                 return {name: item.name, artist: item.artist.name}

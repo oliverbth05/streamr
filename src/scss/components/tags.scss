@@ -6,10 +6,12 @@
     margin: .5rem;
     text-align: center;
     transition: all .4s;
+    flex-grow: 1;
     
     &:hover {
         background: $primary50;
         color: white;
-        flex-grow: 1;
+        flex-grow: 2;
     }
 }
+

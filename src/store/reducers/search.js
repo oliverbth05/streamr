@@ -2,7 +2,7 @@ const search = (state = null, action) => {
 
     switch (action.type) {
 
-        case 'LOAD_SEARCH_DATA' :
+        case 'FETCH_SEARCH_DATA' :
             return action.payload
             
         default :

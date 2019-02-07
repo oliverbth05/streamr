@@ -2,31 +2,27 @@ import React, {Component}   from 'react';
 import { connect }          from 'react-redux';
 
 import Loader               from '../components/Loader';
-import MyAlbumsGrid         from '../components/MyAlbumsGrid';
+import AlbumGrid            from '../components/AlbumGrid/AlbumGrid';
+
 import EmptyLibrary         from '../components/EmptyLibrary';
+import Header               from '../components/ui/Header';
 
 class Albums extends Component {
 
     render() {
     
+        if (this.props.loading || this.props.myAlbums === null) {
+            return <Loader />
+        }
+    
         return(
-           <div className = 'page-container'>
-            
-                {this.props.loading ?
-                    <Loader/>
-                : null}
-                
-                <div className = {this.props.loading ? 'fade-container faded-out' : 'fade-container faded-in'}>
-                    
-                    <h2 className = 'heading center'>My Albums</h2>
-                    
-                    {this.props.myAlbums.length > 0 ?
-                    <MyAlbumsGrid albums = {this.props.myAlbums} />
-                    :
-                    <EmptyLibrary media = 'album' />
-                    }
-                </div>
-                
+            <div className = 'container'>
+                <Header size = {2} light bright border margin = {'m-b-3 m-t-2'}>My Albums</Header>
+                {this.props.myAlbums.length > 0 ?
+                <AlbumGrid albums = {this.props.myAlbums} />
+                :
+                <EmptyLibrary media = 'album' />
+                }
             </div>
             )
     }
@@ -39,10 +35,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Albums);
+export default connect(mapStateToProps, null)(Albums);

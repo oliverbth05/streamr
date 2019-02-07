@@ -1,10 +1,9 @@
 import React, {Component}  from 'react';
 import {connect}           from 'react-redux';
-import {loadTagDataAsync}  from '../store/actions';
-
+import {fetchTagData}      from '../store/actions';
 
 import Loader              from '../components/Loader';
-import SearchResults       from '../components/SearchResults/SearchResults';
+import SearchResults       from '../components/SearchResults';
 
 class Tags extends Component {
 
@@ -21,13 +20,11 @@ class Tags extends Component {
         else {
             return(
                 <div className = 'container'>
-                    <h1 className = 'color-white center'>Results for Tag: '{this.props.match.params.id}' </h1>
+                    <h1 className = 'white-100 text-center font-light m-t-3 m-b-3'>Results for Tag: '{this.props.match.params.id}' </h1>
                     <SearchResults {...this.props.tag }/>
                 </div>
             )
         }
-        
-        
     }
 }
 
@@ -40,7 +37,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-         loadTagData: (tag) => { dispatch(loadTagDataAsync(tag))}
+         loadTagData: (tag) => { dispatch(fetchTagData(tag))}
     }
 }
 

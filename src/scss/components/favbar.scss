@@ -1,0 +1,52 @@
+.favbar {
+    padding: .3rem;
+    margin: auto;
+    text-align: center;
+    border-radius: 5px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    
+    i {
+        font-size: 1.4rem;
+       
+    }
+}
+
+.favbar-modal {
+    padding: 2rem;
+    max-width: 200px;
+    background: $dark70;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 3;
+    
+    &__backdrop {
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.3);
+        height: 100vh;
+        width: 100vh;
+        top: 0;
+        left: 0;
+        position: fixed;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.added {
+    color: $primary100;
+    border-color: $primary50;
+}
+
+.not-added {
+    border-color: $white50;
+    color: $white50;
+    
+    &:hover {
+        border-color: $white100;
+        color: $white100;
+    }
+}

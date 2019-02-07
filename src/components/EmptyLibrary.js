@@ -14,7 +14,7 @@ const EmptyLibrary = (props) => {
     
     
     return (
-        <div className = 'empty-lib'><p>No {props.media}s saved. Add {props.media}s to your library by clicking the <i class="fas fa-star"></i> icon when you visit {article} {props.media}'s page.</p></div>
+        <div className = 'empty-lib'><p>No {props.media}s saved. Add {props.media}s to your library by clicking the <i className="fas fa-star"></i> icon when you visit {article} {props.media}'s page.</p></div>
         )
 }
 

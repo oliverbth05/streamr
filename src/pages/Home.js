@@ -1,12 +1,13 @@
 import React, {Component}  from 'react';
 import {connect}           from 'react-redux';
-import {fetchHomeData} from '../store/actions';
+import {fetchHomeData}     from '../store/actions';
 import {Link}              from 'react-router-dom';
 
 import Loader              from '../components/Loader';
 import ArtistGrid          from '../components/ArtistGrid/ArtistGrid';
-import TrackList           from '../components/TrackList/TrackList';
+import TrackList           from '../components/TrackList';
 import TagGrid             from '../components/TagGrid';
+import Header              from '../components/ui/Header';
 
 class Home extends Component {
 
@@ -20,37 +21,38 @@ class Home extends Component {
             
             return (
                 <div>
-                
-                
-                    <div className = 'full-section bg-image'>
+                    <div className = 'half-section bg-image'>
                         <div>
-                            <h1 className = 'white-100 font-light center'><i className="fas fa-broadcast-tower"></i> STREAMER</h1>
-                            <Link className = 'button' to = '/about'>About</Link>
+                            <Header size = {1} light bright logo margin = {'m-b-2'}><i className="fas fa-broadcast-tower"></i> STREAMER</Header>
+                            <Link className = 'button m-t-1' to = '/about'>About</Link>
                         </div>
                     </div>
                 
                     <div className = 'full-section border-top'>
-                        <div className = 'container'>
-                            <h2 className = 'white-100 font-light center'>Top Tracks</h2>
+                        <div className = 'container'> 
+                        
+                            <h1 className = 'text-center font-light m-b-3 m-t-3 logo white-100'>BILLBOARDS</h1>
+                            
+                            <Header size = {2} border light bright margin = {'m-b-2'}>Top Tracks</Header>
                             <TrackList tracks = {this.props.home.topTracks}/>
                         </div>
                     </div>
      
                     <div className = 'full-section'>
                         <div className = 'container'>
-                            <h2 className = 'white-100 font-light center'>Top Artists</h2>
-                             <ArtistGrid artists = {this.props.home.topArtists}/>
+                            <Header size = {2} border light bright margin = {'m-b-2'}>Top Artists</Header>
+                            <ArtistGrid artists = {this.props.home.topArtists} align = {'center'}/>
                         </div>
                     </div>
                     
                     <div className = 'full-section'>
                         <div className = 'container'>
-                            <h2 className = 'white-100 font-light center'>Poular Tags</h2>
+                            <Header size = {2} border light bright margin = {'m-b-2'}>Top Tags</Header>
                             <TagGrid tags = {this.props.home.topTags} />
                         </div>
                     </div>
                 </div>
-            )
+            ) 
         }
         else {
             return <Loader />

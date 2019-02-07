@@ -1,9 +1,9 @@
 import React, {Component}    from 'react';
 import { connect }           from 'react-redux';
-import {loadSearchDataAsync} from '../store/actions';
+import {fetchSearchData}     from '../store/actions';
 
 import Loader                from '../components/Loader';
-import SearchResults         from '../components/SearchResults/SearchResults';
+import SearchResults         from '../components/SearchResults';
 
 class Search extends Component {
     
@@ -26,7 +26,7 @@ class Search extends Component {
         else {
             return(
                 <div className = 'container'>
-                   <h1 className = 'color-white center'>Search Results for '{this.props.match.params.id}'</h1>
+                   <h1 className = 'white-100 font-light text-center m-t-3 m-b-3'>Search Results for '{this.props.match.params.id}'</h1>
                    <SearchResults {...this.props.search} />
                 </div>
             )
@@ -44,7 +44,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadSearchData: (searchTerm) => { dispatch(loadSearchDataAsync(searchTerm))}
+        loadSearchData: (searchTerm) => { dispatch(fetchSearchData(searchTerm))}
     }
 }
 

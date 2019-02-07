@@ -24,9 +24,13 @@ h4, {
 }
 
 p, li, a, td, label, button, input, textarea {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     white-space: pre-wrap;
     font-family: 'Source Sans Pro', sans-serif;
+}
+
+a, button, input, .nav {
+    transition: all .2s;
 }
 
 label {
@@ -39,14 +43,26 @@ a {
     color: inherit;
 }
 
+
+
 ul {
     list-style-type: none;
 }
 
-.center {
-    text-align: center;
+.logo {
+    font-family: 'Comfortaa', sans-serif;
 }
 
-.color-white {
-    color: $white50;
+.border-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+        margin-bottom: 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+        flex-grow: 2;
+        border-bottom: 1px solid $white50;
+    }
 }

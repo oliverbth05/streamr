@@ -1,24 +1,27 @@
-.input {
-    outline: none;
-}
-
-.input-block {
-    border: none;
-    border-bottom: 1px solid;
-    border-radius: 4px;
-    width: 100%;
+.search {
     display: block;
-    padding: .6rem;
-    outline: none;
-}
-
-.input-1 {
-    background: $black50;
-    border-color: $white50;
+    width: 100%;
+    border-radius: 3px;
+    border: 2px solid $white50;
+    padding: .2rem .3rem .2rem .3rem;
+    background: transparent;
     color: $white50;
-
-    &:focus, &:hover {
-        color: $white100;
+    
+    &:focus {
+        outline: none;
         border-color: $white100;
+        color: $white100;
     }
 }
+
+.drawer-search {
+    display: block;
+    width: 100%;
+    background: transparent;
+    height: 3rem;
+    border: 1px solid $dark100;
+    background: $dark100;
+    
+}
+
+

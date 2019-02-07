@@ -2,32 +2,27 @@ import React, {Component}   from 'react';
 import { connect }          from 'react-redux';
 
 import Loader               from '../components/Loader';
-import MyTracksList         from '../components/MyTracksList';
+import TrackList            from '../components/TrackList';
 import EmptyLibrary         from '../components/EmptyLibrary';
+import Header               from '../components/ui/Header';
 
 class Tracks extends Component {
 
     render() {
+        
+        if (this.props.loading || this.props.myTracks === null) {
+            return <Loader />
+        }
+        
         return(
-            
-           <div className = 'page-container'>
-            
-                {this.props.loading ?
-                    <Loader/>
-                : null}
-                
-                <div className = {this.props.loading ? 'fade-container faded-out' : 'fade-container faded-in'}>
+            <div className = 'container'>
+                <Header size = {2} light bright border margin = {'m-b-3 m-t-2'}>My Tracks</Header>
                     
-                    <h2 className = 'heading center'>My Tracks</h2>
-                    
-                    {this.props.myTracks.length > 0 ?
-                    <MyTracksList tracks = {this.props.myTracks}/>
-                    :
-                    <EmptyLibrary media = 'track' />
-                    }
-            
-                </div>
-                
+                {this.props.myTracks.length > 0 ?
+                <TrackList tracks = {this.props.myTracks}/>
+                :
+                <EmptyLibrary media = 'track' />
+                }
             </div>
             )
     }
@@ -40,10 +35,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Tracks);
+export default connect(mapStateToProps, null)(Tracks);

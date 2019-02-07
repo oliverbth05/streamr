@@ -21,15 +21,15 @@ class FavBarAlbum extends Component {
             
             <div>
               {inLibrary ?
-                <div className = 'favorite added' onClick = { () => {this.props.removeAlbum({name: this.props.name, artist: this.props.artist})}}>
+                <a className = 'favbar added' onClick = { () => {this.props.removeAlbum({name: this.props.name, artist: this.props.artist})}}>
                     <i className="fas fa-star"></i>
                     <p>In Favorites</p>
-                </div>
+                </a>
                 :
-                <div onClick  = {() => {this.props.addAlbum({name: this.props.name, img: this.props.img, artist: this.props.artist})}} className = 'favorite not-added'>
+                <a onClick  = {() => {this.props.addAlbum({name: this.props.name, img: this.props.img, artist: this.props.artist})}} className = 'favbar not-added'>
                     <i className="far fa-star"></i>
                     <p>Add to Favorites</p>
-                </div>
+                </a>
               }
             </div>
             

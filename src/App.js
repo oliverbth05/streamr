@@ -1,8 +1,6 @@
 import React, { Component }           from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import { connect }                    from 'react-redux';
 /////////////////////////////////Pages
-import Auth                           from './pages/Auth';
 import Home                           from './pages/Home';
 import Tracks                         from './pages/Tracks';
 import Albums                         from './pages/Albums';
@@ -60,30 +58,21 @@ class App extends Component {
   }
   
   render() {
-    
     return (
       <BrowserRouter>
         <div className="App">
         <Nav drawer = {this.state.drawer} toggleDrawer = {this.toggleDrawer.bind(this)} />
           <Switch>
-          
-              <Route exact path = '/' component = {Home} />
-              <Route exact path = '/auth' component = {Auth} />
-              
-              
-              <Route exact path = '/artist/:id' component = {ShowArtist}/>
-              <Route exact path = '/album/:artistid/:albumid' component = {ShowAlbum} />
-              <Route exact path = '/search/:id' component = {Search} />
-              
-              <Route exact path = '/tag/:id' component = {Tags} />
-              <Route exact path = '/mytracks' component = {Tracks} />
-              <Route exact path = '/myalbums' component = {Albums} />
-              <Route exact path = '/myartists' component = {Artists} />
-              
-              <Route exact path = '/about' component= {About} />
-              
-              <Route component = {PageNotFound} />
-
+            <Route exact path = '/' component = {Home} />
+            <Route exact path = '/artist/:id' component = {ShowArtist}/>
+            <Route exact path = '/album/:artistid/:albumid' component = {ShowAlbum} />
+            <Route exact path = '/search/:id' component = {Search} />
+            <Route exact path = '/tag/:id' component = {Tags} />
+            <Route exact path = '/mytracks' component = {Tracks} />
+            <Route exact path = '/myalbums' component = {Albums} />
+            <Route exact path = '/myartists' component = {Artists} />
+            <Route exact path = '/about' component= {About} />
+            <Route component = {PageNotFound} />
           </Switch>
         </div>
       </BrowserRouter>
@@ -91,17 +80,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        tracks: state.topTracks,
-        artists: state.topArtists,
-        loading: state.loading
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

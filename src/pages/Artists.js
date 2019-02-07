@@ -2,33 +2,32 @@ import React, {Component}   from 'react';
 import { connect }          from 'react-redux';
 
 import Loader               from '../components/Loader';
-import MyArtistsGrid        from '../components/MyArtistsGrid';
+import ArtistGrid           from '../components/ArtistGrid/ArtistGrid';
 import EmptyLibrary         from '../components/EmptyLibrary';
+import Header               from '../components/ui/Header';
 
 class Artists extends Component {
 
     render() {
-        console.log(this.props)
-        return(
-           <div className = 'page-container'>
-            
-                {this.props.loading ?
-                    <Loader/>
-                : null}
-                
-                <div className = {this.props.loading ? 'fade-container faded-out' : 'fade-container faded-in'}>
-                    
-                    <h2 className = 'heading center'>My Artists</h2>
-                    
-                    {this.props.myArtists.length > 0 ?
-                    <MyArtistsGrid artists = {this.props.myArtists} />
-                    :
-                    <EmptyLibrary media = 'artist' />
-                    }
+        
+        if (this.props.loading || this.props.myArtists === null) {
+            return (
+                <div className = 'container'>
+                    <Loader />
                 </div>
-                
-            </div>
             )
+        }
+        
+        return(
+            <div className = 'container'>
+                <Header size = {2} light bright border margin = {'m-b-3 m-t-2'} >My Artists</Header>
+                {this.props.myArtists.length > 0 ?
+                <ArtistGrid artists = {this.props.myArtists} align = {'start'}/>
+                :
+                <EmptyLibrary media = 'artist' />
+                }
+            </div>
+        )
     }
 }
 
@@ -39,10 +38,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Artists);
+export default connect(mapStateToProps, null)(Artists);

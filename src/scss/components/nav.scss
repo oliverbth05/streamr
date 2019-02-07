@@ -1,7 +1,8 @@
 .nav {
+
     box-sizing: border-box;
     border-bottom: 1px solid $white50;
-    height: 65px;
+    height: 45px;
     position: fixed;
     top: 0;
     right: 0;
@@ -11,24 +12,33 @@
     grid-template-columns: 2fr 4fr 2fr; 
     grid-template-rows: 100%;
     align-items: center;
+    z-index: 2;
     
-    &__heading-container {
-        
+    @include respond(tablet) {
+        grid-template-columns: 1fr;
     }
     
+    &:hover {
+        border-color: $white100;
+
+    }
+
+    &__heading__container {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
     &__heading {
-        font-size: 23px;
-        display: block;
+        display: inline-block;
         margin: auto;
-        padding: 18px;
         cursor: pointer;
         text-decoration: none;
-        max-width: 190px;
-        
-       
-        
-        
-        
+        font-family: 'Comfortaa', sans-serif;
+        letter-spacing: 3px;
+        text-align: center;
+
         &:hover {
             color: $white100;
         }
@@ -40,25 +50,20 @@
         justify-content: center;
         
         @include respond(tablet) {
-        display: none;
+            display: none;
         }
     }
     
     &__link {
         display: block;
         height: 100%;
-        padding: 20px;
+        padding: 15px 20px 15px 20px;
         color: $white50;
-        font-size: 15px;
-        font-weight: 300;
-        border-bottom: 5px solid transparent;
-        margin: 10px;
         cursor: pointer;
         text-decoration: none;
         
         &:hover {
             color: $white100;
-            border-color: $white100;
         }
     }
     
@@ -75,46 +80,37 @@
     &__btn-mobile {
         display: none;
         position: fixed;
-        top: 15px;
-        right: 50px;
+        top: 7px;
+        right: 20px;
         background: transparent;
         font-size: 22px;
-        padding: 10px;
-        width: 48px;
-        height: 48px;
+        padding: 0px;
+        width: 30px;
+        height: 30px;
         text-align: center;
-        border-radius: 50px;
-        border: 2px solid;
         cursor: pointer;
+        border: none;
         
         &:focus {
             outline: none;
         }
         
-        @include respond(phone) {
+        @include respond(tablet) {
             display: block;
-            top: 10px;
         }
         
-        @include respond (tablet) {
-            height: 40px;
-            width: 40px;
-            font-size: 17px;
-            top: 14px;
-            padding: 9px;
-            right: 30px;
-        }
+
     }
     
     &__drawer {
-   
-        background: $black100;
+        transition: all .4s;
+        background: $dark100;
         height: 100%;
-        width: 100%;
+        width: 50%;
         position: fixed;
         overflow-y: auto;
+        top: 45px;
         
-        top: 65px;
         &:hover {
             border-color: $primary100;
         }
@@ -137,6 +133,7 @@
         margin-bottom: 10px;
         cursor: pointer;
         text-decoration: none;
+        background: $dark50;
         
         &:hover {
             color: $white100;
@@ -149,10 +146,6 @@
         margin: auto;
         margin-top: 30px;
     }
-    
-    @include respond(phone) {
-        grid-template-columns: 1fr;
-    }
 }
 
 .shown {
@@ -162,7 +155,7 @@
 
 .hidden {
     opacity: 0;
-    transform: translateX(-2000px);
+    transform: translateX(-100%);
 }
 
 .btn-active {
@@ -182,6 +175,9 @@
 }
 
 .active {
-    color: $primary100;
-    border-color: $primary100;
+    color: $primary50;
+    
+    &:hover {
+        color: $primary100;
+    }
 }

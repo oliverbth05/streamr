@@ -1,11 +1,9 @@
-@import './mixins.scss';
 @import './color.scss';
+@import './animation.scss';
+@import './mixins.scss';
 @import './typography.scss';
 @import './layout.scss';
 @import './helpers.scss';
-//Pages
-
-
 //Components
 @import './components/nav.scss';
 @import './components/loader.scss';
@@ -13,7 +11,7 @@
 @import './components/input.scss';
 @import './components/tracklist.scss';
 @import './components/tags.scss';
-@import './components/form.scss';
+@import './components/favbar.scss';
 
 html {
     //The default browser font-size is 16px
@@ -39,10 +37,12 @@ html {
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  margin-top: 65px;
+  margin-top: 45px;
   background: black;
   color: $white50;
 }
